@@ -82,8 +82,6 @@ public class RPCUtils {
 		byte[] encoded = new byte [1];
 		// TODO - START 					
 		
-		//tar ingen parameter, encoded tabellen skal være tom. 
-		
 		
 		// TODO - END
 		
