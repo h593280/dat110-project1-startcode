@@ -7,7 +7,7 @@ import no.hvl.dat110.messaging.Connection;
 import no.hvl.dat110.messaging.Message;
 import no.hvl.dat110.messaging.MessagingServer;
 
-public class RPCServer {
+public class RPCServer  {
 
 	private MessagingServer msgserver;
 	private Connection connection;
@@ -40,18 +40,26 @@ public class RPCServer {
 		   byte rpcid = 0;
 		   Message requestmsg,replymsg;
 		   
-		   // TODO - START
 		   // - receive Message containing RPC request
+		   requestmsg = connection.receive();
+		   
 		   // - find the identifier for the RPC method to invoke
+		   byte[] encoded = requestmsg.getData();
+		   rpcid = encoded[0];
+		   
 		   // - lookup the method to be invoked
+		   RPCRemoteImpl rpcimpl = services.get(rpcid);
+		   
+		 
 		   // - invoke the method
+		   byte[] returnval = rpcimpl.invoke(RPCUtils.decapsulate(encoded));
+		   
 		   // - send back message containing RPC reply
-			
-		   if (true)
-				throw new UnsupportedOperationException(TODO.method());
+		   replymsg = new Message(RPCUtils.encapsulate(rpcid, returnval));
+		   connection.send(replymsg);
 		   
-		   // TODO - END
 		   
+		   ///////////////////////////////
 		   if (rpcid == RPCCommon.RPIDSTOP) {
 			   stop = true;
 		   }

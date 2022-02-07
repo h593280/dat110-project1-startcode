@@ -8,16 +8,21 @@ public class Message {
 
 	public Message(byte[] data) {
 		
-		// TODO - START
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.constructor("Message"));
-			
-		// TODO - END
+		if(data.length <= 127) {
+			this.data = data;
+		} else {
+			this.data = null;
+		}
 	}
 
 	public byte[] getData() {
 		return this.data; 
 	}
+
+	public void setData(byte[] data) {
+		this.data = data;
+	}
+	
+	
 
 }
